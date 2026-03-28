@@ -1,0 +1,44 @@
+name: "Complete Development Pipeline"
+description: "Full development workflow with security and review"
+
+steps:
+  - name: generate_code
+    agent_type: openhands
+    task: "Create a secure REST API with authentication"
+    config:
+      language: "python"
+      max_iterations: 5
+
+  - name: security_test
+    agent_type: strix
+    task: "Perform comprehensive security testing"
+    depends_on:
+      - generate_code
+    config:
+      scan_mode: "comprehensive"
+      generate_poc: true
+
+  - name: code_review
+    agent_type: crewai
+    task: "Review code quality and security fixes"
+    depends_on:
+      - security_test
+    config:
+      agents: ["code_reviewer", "security_expert", "performance_analyst"]
+
+  - name: autogpt_improve
+    agent_type: autogpt
+    task: "Improve the code based on review feedback"
+    depends_on:
+      - code_review
+    config:
+      goals: ["optimize performance", "enhance security", "add documentation"]
+
+  - name: deploy_content
+    agent_type: moneyprinter
+    task: "Create documentation and deployment guide"
+    depends_on:
+      - autogpt_improve
+    config:
+      platform: "docs"
+      action: "create_content"
