@@ -1,0 +1,29 @@
+name: "Content Creation Workflow"
+description: "Create content with AutoGPT and distribute with MoneyPrinter"
+
+steps:
+  - name: generate_content
+    agent_type: autogpt
+    task: "Create a trending tech video script about AI agents"
+    config:
+      platform: "youtube"
+      tone: "educational"
+      length: "short"
+
+  - name: create_video
+    agent_type: moneyprinter
+    task: "Generate video from script with voiceover"
+    depends_on:
+      - generate_content
+    config:
+      platform: "youtube"
+      style: "professional"
+
+  - name: distribute_social
+    agent_type: moneyprinter
+    task: "Post video and create social media promotion"
+    depends_on:
+      - create_video
+    config:
+      platforms: ["twitter", "linkedin"]
+      schedule: "immediate"

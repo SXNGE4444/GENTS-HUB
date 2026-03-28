@@ -1,0 +1,27 @@
+name: "Secure Development Pipeline"
+description: "Generate code with OpenHands, then test security with Strix"
+
+steps:
+  - name: generate_code
+    agent_type: openhands
+    task: "Create a secure FastAPI authentication endpoint with JWT"
+    config:
+      max_iterations: 5
+      language: "python"
+
+  - name: security_test
+    agent_type: strix
+    task: "Test the generated code for security vulnerabilities"
+    depends_on:
+      - generate_code
+    config:
+      scan_mode: "quick"
+      generate_poc: true
+
+  - name: review_and_fix
+    agent_type: crewai
+    task: "Review security findings and fix critical issues"
+    depends_on:
+      - security_test
+    config:
+      agents: ["security_expert", "code_reviewer", "developer"]

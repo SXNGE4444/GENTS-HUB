@@ -1,0 +1,12 @@
+[submodule "OpenHands"]
+	path = OpenHands
+	url = https://github.com/OpenHands/OpenHands
+[submodule "crewAI"]
+	path = crewAI
+	url = https://github.com/crewAIInc/crewAI
+[submodule "strix"]
+	path = strix
+	url = https://github.com/usestrix/strix
+[submodule "MoneyPrinterV2"]
+	path = MoneyPrinterV2
+	url = https://github.com/FujiwaraChoki/MoneyPrinterV2
